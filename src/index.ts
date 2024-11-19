@@ -53,6 +53,13 @@ function calcularImpostoRenda(salarioBruto: number): number {
   return parseFloat(impostoTotal.toFixed(2));
 }
 
+function calcularSalarioLiquido(salarioBruto: number): number {
+  const inss = calcularInss(salarioBruto);
+  const impostoDeRenda = calcularImpostoRenda(salarioBruto);
+  const salarioLiquido = salarioBruto - inss - impostoDeRenda;
+
+  return parseFloat(salarioLiquido.toFixed(2));
+}
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -66,12 +73,13 @@ rl.question('Digite o salário bruto: R$', (input) => {
       console.log('Digite um valor numérico válido para o salário bruto:');
   } else {
       const inss = calcularInss(salarioBruto);
-      const impostoDeRenda = calcularImpostoRenda(salarioBruto);
+      const impostoDeRenda = calcularImpostoRenda(salarioBruto);3
+      const salarioLiquido = calcularSalarioLiquido(salarioBruto);
 
       console.log(`\nSalário Bruto: R$${salarioBruto.toFixed(2)}`);
       console.log(`INSS: R$${inss.toFixed(2)}`);
       console.log(`Imposto de Renda: R$${impostoDeRenda.toFixed(2)}`);
-      console.log(`Salário Líquido: R$${(salarioBruto - inss - impostoDeRenda).toFixed(2)}`);
+      console.log(`Salário Líquido: R$${salarioLiquido.toFixed(2)}`);
   }
 
   rl.close();
