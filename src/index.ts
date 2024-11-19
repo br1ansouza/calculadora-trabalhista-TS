@@ -61,6 +61,16 @@ function calcularSalarioLiquido(salarioBruto: number): number {
   return parseFloat(salarioLiquido.toFixed(2));
 }
 
+function calcularSalarioFerias(salarioBruto: number): number {
+  const salarioFerias = salarioBruto + salarioBruto / 3; // salário mais 1/3 (33%) de adicional de férias
+  const inss = calcularInss(salarioFerias);
+  const impostoDeRenda = calcularImpostoRenda(salarioFerias);
+  const salarioLiquidoFerias = salarioFerias - inss - impostoDeRenda;
+
+  return parseFloat(salarioLiquidoFerias.toFixed(2));
+}
+
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -75,11 +85,13 @@ rl.question('Digite o salário bruto: R$', (input) => {
       const inss = calcularInss(salarioBruto);
       const impostoDeRenda = calcularImpostoRenda(salarioBruto);3
       const salarioLiquido = calcularSalarioLiquido(salarioBruto);
+      const salarioFerias = calcularSalarioFerias(salarioBruto);
 
       console.log(`\nSalário Bruto: R$${salarioBruto.toFixed(2)}`);
       console.log(`INSS: R$${inss.toFixed(2)}`);
       console.log(`Imposto de Renda: R$${impostoDeRenda.toFixed(2)}`);
       console.log(`Salário Líquido: R$${salarioLiquido.toFixed(2)}`);
+      console.log(`Salário de Férias (com adicional de 33%): R$${salarioFerias.toFixed(2)}`);
   }
 
   rl.close();
